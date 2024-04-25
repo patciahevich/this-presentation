@@ -14,12 +14,420 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 	</head>
 	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+	    <div class="reveal">
+      <div class="slides">
+        <section>
+					<h1>This</h1>
+					<img src="./assets/c46a92a7bff2230c2841f2fc856777fa.jpg">
+					<p style="font-size: small;">prepared by a student Volha Patciahevich</p>
+				</section>
+
+        <section>
+					<h2>Definition of <b style="color: red;">this</b></h2>
+					<p>the <b style="color: red;">this</b> keyword always refers to an object (the object “before dot”, which used to call the method)</p>
+					<img src="./assets/welcome-to-javascript.jpg">
+				</section>
+
+        <section>
+
+					<section>
+						<h4>The problem</h4>
+						<pre>
+							<code>
+								const user = {
+									name: 'Ivan',
+									sayHi() {
+										return `Hello, ${this.name}!`;
+									}
+								}
+	
+								console.log(user.sayHi()) //???
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h6>Make some changes</h6>
+						<pre>
+							<code>
+								const user = {
+									name: 'Ivan',
+									sayHi() {
+										return `Hello, ${this.name}!`;
+									}
+								}
+
+								const hi = user.sayHi;
+	
+								console.log(hi) //????
+							</code>
+						</pre>
+						
+					</section>
+
+					<section>
+						<h6>Another changes</h6>
+						<pre>
+							<code>
+
+								const user2 = {
+									name: 'Alex',
+								}
+
+								const hi = user.sayHi;
+	
+								console.log(hi.call(user2)) //????
+							</code>
+						</pre>
+						
+					</section>
+			
+				</section>
+
+        <section>
+					<h4> How we execute code in JavaScript:</h4>
+					<ul>
+						<li class="fragment"> call a function</li>
+						<li class="fragment"> call a method of an object</li>
+						<li class="fragment"> call a constructor function </li>
+						<li class="fragment"> indirect function call </li>
+					</ul>
+				</section>
+
+        
+				<section>
+					<section>
+						<h4>Function</h4>
+						<pre>
+							<code>
+								function defineThis() {
+									return `This is equal to ${this}`;
+								}
+								
+								console.log(defineThis());
+								
+								// "This is equal to [object Window]"
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h4>Function</h4>
+						<pre>
+							<code>
+
+								function defineThis() {
+									function nestedFunction() {
+										return `This is equal to ${this}`;
+									}
+
+									return nestedFunction();
+								}
+								
+								console.log(defineThis());
+
+							// "This is equal to [object Window]"
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h4>Function</h4>
+						<pre>
+							<code>
+								'use strict'
+
+								function defineThis() {
+									return `This is equal to ${this}`;
+								}
+								
+								console.log(defineThis());
+
+								// "This is equal to undefined"
+							</code>
+						</pre>
+					</section>
+				</section>
+
+        <section>
+					<h4>Method</h4>
+					<pre>
+						<code>
+							const person = {
+								firstName: "John",
+								lastName : "Doe",
+								isThis() {
+									return this === person;
+								}
+							};
+						
+							console.log(person.isThis());
+
+							//true
+						</code>
+					</pre>
+				</section>
+    
+				<section>
+					<section>
+						<h4>Constructor</h4>
+						<pre>
+							<code>
+								function User(name) {
+									this.name = name;
+									this.getName = function() {
+										return this.name;
+									}
+								}
+								
+								const firstUser = new User('Alex');
+								
+								console.log(firstUser.getName()) // "Alex"
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h4>How does it work</h4>
+						<ol>
+							<li>
+								<p>constructor function initiates an object and assigns it to <b style="color: red;">this</b></p>
+								<pre>
+									<code>// this = {};</code>
+								</pre>
+							</li>
+							<li>
+								<p>function body is executed</p>
+								<pre>
+									<code>
+                this.name = name
+                this.getName = function() {
+                  return this.name;
+                }
+									</code>
+								</pre>
+							</li>
+							<li>
+								<p>the value of <b style="color: red;">this</b> is returned</p>
+								<pre>
+									<code> // return this</code>
+								</pre>
+							</li>
+						</ol>
+					</section>
+				</section>
+
+        <section>
+					<section>
+						<h4>Indirect function call </h4>
+						<p><code>call()</code> and <code>apply()</code></p>
+						<pre>
+							<code>
+								function greet() {
+									return `Hello, ${this.name}`;
+								}
+								
+								const user1 = { name: 'Alex' };
+								const user2 = { name: 'Ivan' };
+	
+								console.log(greet.call(user1)) // "Hello, Alex"
+								console.log(greet.apply(user2)) // "Hello, Ivan"
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h4>Indirect function call </h4>
+						<code>bind()</code>
+						<pre>
+							<code>
+								function greet() {
+									return `Hello, ${this.name}`;
+								}
+								
+								const user1 = { name: 'Alex' };
+								const user2 = { name: 'Ivan' };
+	
+								const greetAlex = greet.bind(user1);
+								console.log(greetAlex())  // "Hello, Alex"
+							</code>
+						</pre>
+
+            <p style="font-size:smaller; color: red;">Note that bind changes the context once. This method cannot be called again.</p>
+					</section>
+					<section>
+						<h4><b style="color: red;">this</b> and object conversion</h4>
+						<pre>
+							<code>
+						function callThis() {
+							console.log(Object.prototype.toString.call(this));
+						}
+						
+						callThis.call(7); //[object Number]
+						callThis.call("foo"); //[object String]
+						callThis.call(undefined); //[object Window]
+							</code>
+						</pre>
+					</section>
+				</section>
+
+        <section>
+					<section>
+						<h4>Losing <b style="color: red;">this</b></h4>
+						<p>The value of <b style="color: red;">this</b> is evaluated during the run-time, depending on the context.</p>
+						<p>example:</p>
+						<pre>
+							<code>
+								const user = {
+									name: 'Alex',
+									show() {
+										console.log(`Name is ${this.name}`);
+									},
+								};
+						
+						setTimeout(user.show, 1000); 
+						//Name is undefined
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h4>How to fix that?</h4>
+						<div>
+              <p>Wrap the call in an anonymous function by creating a closure</p>
+              <pre>
+                <code>
+              setTimeout(function() {
+                user.show();
+              }, 1000); 
+              
+              // Name is Alex
+                </code>
+              </pre>
+            </div>
+      
+					</section>
+					<section>
+						<h4>How to fix that?</h4>
+						<p>Use indirect function call </p>
+
+						<pre>
+							<code>
+								setTimeout(user.show.call(user), 1000);
+								 // Name is Alex
+								setTimeout(user.show.apply(user), 1000);
+								 // Name is Alex
+
+								const showAlex = user.show.bind(user);
+								setTimeout(showAlex, 1000); // Name is Alex
+							</code>
+						</pre>
+					</section>
+				</section>
+
+        <section>
+					<h4 style="color: red;">Important to remember</h4>
+					<ul style="font-size: smaller;">
+             <li class="fragment" >When using <b style="color: red;">this</b> in an event listener, this will refer to the DOM element that fired the event.</li>
+             <li class="fragment">In nested objects the <b style="color: red;">this</b> keyword refers to the object whose method call it.</li>
+             <li class="fragment">
+              <p>Arrow functions don’t have their “own” <b style="color: red;">this</b>.</p>
+              <pre class="fragment fade-in-then-out shrink current-visible">
+                <code>
+              setTimeout(() => {
+                user.show();
+              }, 1000); 
+              
+              //"Name is Alex";
+                </code>
+              </pre>
+             </li>
+
+          </ul>
+				</section>
+
+        
+        <section>
+
+					<section>
+						<h4>Let's return to the task from the beginning of the presentation</h4>
+						<pre>
+							<code>
+                'use strict'
+								const user = {
+									name: 'Ivan',
+									sayHi() {
+										return `Hello, ${this.name}!`;
+									}
+								}
+
+								console.log(user.sayHi())
+							</code>
+						</pre>
+
+            <pre class="fragment fade-up">
+              <code>
+             //"Hello, Ivan!";
+              </code>
+            </pre>
+					</section>
+
+					<section>
+						<h6>Make some changes</h6>
+						<pre>
+							<code>
+                'use strict'
+								const user = {
+									name: 'Ivan',
+									sayHi() {
+										return `Hello, ${this.name}!`;
+									}
+								}
+
+								const hi = user.sayHi;
+
+								console.log(hi)
+							</code>
+						</pre>
+
+            <pre class="fragment fade-up">
+              <code>
+              //"Hello, undefined!";
+              </code>
+            </pre>
+						
+					</section>
+
+					<section>
+						<h6>Another changes</h6>
+						<pre>
+							<code>
+                'use strict'
+                const hi = user.sayHi;
+
+								const user2 = {
+									name: 'Alex',
+								};
+
+								console.log(hi.call(user2))
+							</code>
+						</pre>
+
+            <pre class="fragment fade-up">
+              <code>
+               //"Hello, Alex!";
+              </code>
+            </pre>
+						
+					</section>
+			
+				</section>
+
+        <section>
+					<h4>Wrapping Up</h4>
+					<img src="./assets/4456025.jpg">
+				
+				</section>
+
+
+      </div>
+    </div>
 
 		<script src="dist/reveal.js"></script>
 		<script src="plugin/notes/notes.js"></script>
