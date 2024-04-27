@@ -9,9 +9,10 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css">
+		<!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
 
 		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<link rel="stylesheet" href="plugin/highlight/a11y-dark.css">
 	</head>
 	<body>
 	    <div class="reveal">
@@ -33,7 +34,7 @@
 					<section>
 						<h4>The problem</h4>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								const user = {
 									name: 'Ivan',
 									sayHi() {
@@ -41,7 +42,7 @@
 									}
 								}
 	
-								console.log(user.sayHi()) //???
+								console.log(user.sayHi()); // ???
 							</code>
 						</pre>
 					</section>
@@ -49,7 +50,7 @@
 					<section>
 						<h6>Make some changes</h6>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								const user = {
 									name: 'Ivan',
 									sayHi() {
@@ -59,7 +60,7 @@
 
 								const hi = user.sayHi;
 	
-								console.log(hi) //????
+								console.log(hi); // ????
 							</code>
 						</pre>
 						
@@ -68,15 +69,14 @@
 					<section>
 						<h6>Another changes</h6>
 						<pre>
-							<code>
-
+							<code class="language-javascript">
 								const user2 = {
 									name: 'Alex',
 								}
 
 								const hi = user.sayHi;
 	
-								console.log(hi.call(user2)) //????
+								console.log(hi.call(user2)); // ????
 							</code>
 						</pre>
 						
@@ -99,7 +99,7 @@
 					<section>
 						<h4>Function</h4>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								function defineThis() {
 									return `This is equal to ${this}`;
 								}
@@ -113,8 +113,7 @@
 					<section>
 						<h4>Function</h4>
 						<pre>
-							<code>
-
+							<code class="language-javascript">
 								function defineThis() {
 									function nestedFunction() {
 										return `This is equal to ${this}`;
@@ -125,14 +124,14 @@
 								
 								console.log(defineThis());
 
-							// "This is equal to [object Window]"
+								// "This is equal to [object Window]"
 							</code>
 						</pre>
 					</section>
 					<section>
 						<h4>Function</h4>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								'use strict'
 
 								function defineThis() {
@@ -150,7 +149,7 @@
         <section>
 					<h4>Method</h4>
 					<pre>
-						<code>
+						<code class="language-javascript">
 							const person = {
 								firstName: "John",
 								lastName : "Doe",
@@ -161,7 +160,7 @@
 						
 							console.log(person.isThis());
 
-							//true
+							// true
 						</code>
 					</pre>
 				</section>
@@ -170,7 +169,7 @@
 					<section>
 						<h4>Constructor</h4>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								function User(name) {
 									this.name = name;
 									this.getName = function() {
@@ -180,7 +179,7 @@
 								
 								const firstUser = new User('Alex');
 								
-								console.log(firstUser.getName()) // "Alex"
+								console.log(firstUser.getName()); // "Alex"
 							</code>
 						</pre>
 					</section>
@@ -191,24 +190,24 @@
 							<li>
 								<p>constructor function initiates an object and assigns it to <b style="color: red;">this</b></p>
 								<pre>
-									<code>// this = {};</code>
+									<code class="language-javascript">// this = {};</code>
 								</pre>
 							</li>
 							<li>
 								<p>function body is executed</p>
 								<pre>
-									<code>
-                this.name = name
-                this.getName = function() {
-                  return this.name;
-                }
+									<code class="language-javascript">
+										this.name = name;
+										this.getName = function() {
+											return this.name;
+										}
 									</code>
 								</pre>
 							</li>
 							<li>
 								<p>the value of <b style="color: red;">this</b> is returned</p>
 								<pre>
-									<code> // return this</code>
+									<code class="language-javascript"> // return this</code>
 								</pre>
 							</li>
 						</ol>
@@ -218,9 +217,9 @@
         <section>
 					<section>
 						<h4>Indirect function call </h4>
-						<p><code>call()</code> and <code>apply()</code></p>
+						<p><code class="language-javascript">call()</code> and <code class="language-javascript">apply()</code></p>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								function greet() {
 									return `Hello, ${this.name}`;
 								}
@@ -228,16 +227,16 @@
 								const user1 = { name: 'Alex' };
 								const user2 = { name: 'Ivan' };
 	
-								console.log(greet.call(user1)) // "Hello, Alex"
-								console.log(greet.apply(user2)) // "Hello, Ivan"
+								console.log(greet.call(user1)); // "Hello, Alex"
+								console.log(greet.apply(user2)); // "Hello, Ivan"
 							</code>
 						</pre>
 					</section>
 					<section>
 						<h4>Indirect function call </h4>
-						<code>bind()</code>
+						<code class="language-javascript">bind()</code>
 						<pre>
-							<code>
+							<code class="language-javascript">
 								function greet() {
 									return `Hello, ${this.name}`;
 								}
@@ -246,23 +245,23 @@
 								const user2 = { name: 'Ivan' };
 	
 								const greetAlex = greet.bind(user1);
-								console.log(greetAlex())  // "Hello, Alex"
+								console.log(greetAlex()); // "Hello, Alex"
 							</code>
 						</pre>
 
-            <p style="font-size:smaller; color: red;">Note that bind changes the context once. This method cannot be called again.</p>
+            <p style="font-size:smaller; color: red;">Note: bind changes the context once. This method cannot be called again.</p>
 					</section>
 					<section>
 						<h4><b style="color: red;">this</b> and object conversion</h4>
 						<pre>
-							<code>
-						function callThis() {
-							console.log(Object.prototype.toString.call(this));
-						}
-						
-						callThis.call(7); //[object Number]
-						callThis.call("foo"); //[object String]
-						callThis.call(undefined); //[object Window]
+							<code data-trim class="language-javascript">
+								function callThis() {
+									console.log(Object.prototype.toString.call(this));
+								}
+								
+								callThis.call(7); //[object Number]
+								callThis.call("foo"); //[object String]
+								callThis.call(undefined); //[object Window]
 							</code>
 						</pre>
 					</section>
@@ -272,18 +271,17 @@
 					<section>
 						<h4>Losing <b style="color: red;">this</b></h4>
 						<p>The value of <b style="color: red;">this</b> is evaluated during the run-time, depending on the context.</p>
-						<p>example:</p>
+						<p style="font-size: smaller;">example:</p>
 						<pre>
-							<code>
+							<code data-trim class="language-javascript">
 								const user = {
 									name: 'Alex',
 									show() {
-										console.log(`Name is ${this.name}`);
+										console.log( `Name is ${this.name}`);
 									},
 								};
 						
-						setTimeout(user.show, 1000); 
-						//Name is undefined
+								setTimeout(user.show, 1000); // Name is undefined
 							</code>
 						</pre>
 					</section>
@@ -292,12 +290,12 @@
 						<div>
               <p>Wrap the call in an anonymous function by creating a closure</p>
               <pre>
-                <code>
-              setTimeout(function() {
-                user.show();
-              }, 1000); 
-              
-              // Name is Alex
+                <code data-noescape class="language-javascript">
+									setTimeout(function() {
+										user.show();
+									}, 1000); 
+									
+									// Name is Alex
                 </code>
               </pre>
             </div>
@@ -308,7 +306,7 @@
 						<p>Use indirect function call </p>
 
 						<pre>
-							<code>
+							<code data-noescape class="language-javascript">
 								setTimeout(user.show.call(user), 1000);
 								 // Name is Alex
 								setTimeout(user.show.apply(user), 1000);
@@ -328,27 +326,26 @@
              <li class="fragment">In nested objects the <b style="color: red;">this</b> keyword refers to the object whose method call it.</li>
              <li class="fragment">
               <p>Arrow functions don’t have their “own” <b style="color: red;">this</b>.</p>
-              <pre class="fragment fade-in-then-out shrink current-visible">
-                <code>
-              setTimeout(() => {
-                user.show();
-              }, 1000); 
-              
-              //"Name is Alex";
+              <pre class="fragment fade-in-then-out current-visible">
+                <code class="language-javascript">
+									setTimeout(() => {
+										user.show();
+									}, 1000); 
+									
+									// "Name is Alex";
                 </code>
               </pre>
              </li>
 
           </ul>
 				</section>
-
         
         <section>
 
 					<section>
 						<h4>Let's return to the task from the beginning of the presentation</h4>
 						<pre>
-							<code>
+							<code class="language-javascript">
                 'use strict'
 								const user = {
 									name: 'Ivan',
@@ -362,8 +359,8 @@
 						</pre>
 
             <pre class="fragment fade-up">
-              <code>
-             //"Hello, Ivan!";
+              <code class="language-javascript">
+             		// "Hello, Ivan!";
               </code>
             </pre>
 					</section>
@@ -371,7 +368,7 @@
 					<section>
 						<h6>Make some changes</h6>
 						<pre>
-							<code>
+							<code class="language-javascript">
                 'use strict'
 								const user = {
 									name: 'Ivan',
@@ -387,8 +384,8 @@
 						</pre>
 
             <pre class="fragment fade-up">
-              <code>
-              //"Hello, undefined!";
+              <code class="language-javascript">
+              // "Hello, undefined!";
               </code>
             </pre>
 						
@@ -397,7 +394,7 @@
 					<section>
 						<h6>Another changes</h6>
 						<pre>
-							<code>
+							<code class="language-javascript">
                 'use strict'
                 const hi = user.sayHi;
 
@@ -410,8 +407,8 @@
 						</pre>
 
             <pre class="fragment fade-up">
-              <code>
-               //"Hello, Alex!";
+              <code class="language-javascript">
+               // "Hello, Alex!";
               </code>
             </pre>
 						
