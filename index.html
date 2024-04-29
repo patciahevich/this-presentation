@@ -25,7 +25,8 @@
 
         <section>
 					<h2>Definition of <b style="color: red;">this</b></h2>
-					<p>the <b style="color: red;">this</b> keyword always refers to an object (the object “before dot”, which used to call the method)</p>
+					<p>the <b style="color: red;">this</b> keyword always refers to an object.</p>
+					<p style="font-size: smaller;"> The value of <b style="color: red;">this</b> is evaluated during the run-time.</p>
 					<img src="./assets/welcome-to-javascript.jpg">
 				</section>
 
@@ -215,10 +216,12 @@
 				</section>
 
         <section>
+
 					<section>
 						<h4>Indirect function call </h4>
-						<p><code class="language-javascript">call()</code> and <code class="language-javascript">apply()</code></p>
-						<pre>
+						<p>In JavaScript <b style="color: red;">this</b> is not related to a single object.</p>
+						<p class="fragment"><code class="language-javascript">call()</code> and <code class="language-javascript">apply()</code></p>
+						<pre class="fragment">
 							<code class="language-javascript">
 								function greet() {
 									return `Hello, ${this.name}`;
@@ -264,6 +267,8 @@
 								callThis.call(undefined); //[object Window]
 							</code>
 						</pre>
+
+						<p style="font-size: smaller">* It works in non-strict mode</p>
 					</section>
 				</section>
 
@@ -303,7 +308,7 @@
 					</section>
 					<section>
 						<h4>How to fix that?</h4>
-						<p>Use indirect function call </p>
+						<p>Call a method with clear context passing </p>
 
 						<pre>
 							<code data-noescape class="language-javascript">
@@ -311,7 +316,16 @@
 								 // Name is Alex
 								setTimeout(user.show.apply(user), 1000);
 								 // Name is Alex
+							</code>
+						</pre>
+					</section>
 
+					<section>
+						<h4>How to fix that?</h4>
+						<p>Bind context using bind method (only once)</p>
+
+						<pre>
+							<code data-noescape class="language-javascript">
 								const showAlex = user.show.bind(user);
 								setTimeout(showAlex, 1000); // Name is Alex
 							</code>
@@ -379,7 +393,7 @@
 
 								const hi = user.sayHi;
 
-								console.log(hi)
+								console.log(hi())
 							</code>
 						</pre>
 
